@@ -23,10 +23,12 @@ try {
     $sqlitePath = $storagePath . '/database.sqlite';
     $bundledDb = __DIR__ . '/../database/database.sqlite';
 
-    if (!file_exists($sqlitePath)) {
-        if (file_exists($bundledDb) && filesize($bundledDb) > 0) {
+    if (file_exists($bundledDb) && filesize($bundledDb) > 0) {
+        if (!file_exists($sqlitePath) || filesize($sqlitePath) < filesize($bundledDb)) {
             @copy($bundledDb, $sqlitePath);
-        } else {
+        }
+    } else {
+        if (!file_exists($sqlitePath)) {
             @touch($sqlitePath);
         }
     }
