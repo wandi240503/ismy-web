@@ -13,7 +13,7 @@
   ],
   "routes": [
     {
-      "src": "/(build/.*|images/.*|css/.*|js/.*|favicon.*|robots.txt|.*\\.(?:ico|png|jpg|jpeg|svg|css|js|webp|woff|woff2|ttf|eot))",
+      "src": "/(build/.*|images/.*|css/.*|js/.*|vendor/.*|storage/.*|favicon.*|robots.txt|.*\\.(?:ico|png|jpg|jpeg|gif|svg|css|js|webp|woff|woff2|ttf|eot|map))",
       "dest": "/public/$1"
     },
     {
