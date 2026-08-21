@@ -28,17 +28,7 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        // Paksa Livewire menggunakan file statis di public/vendor/livewire/ agar tidak
-        // melewati route PHP dinamis yang bermasalah di serverless Vercel
-        if (class_exists(\Livewire\Livewire::class)) {
-            \Livewire\Livewire::setScriptRoute(function ($handle) {
-                return \Illuminate\Support\Facades\Route::get('/vendor/livewire/livewire.js', $handle);
-            });
 
-            \Livewire\Livewire::setUpdateRoute(function ($handle) {
-                return \Illuminate\Support\Facades\Route::post('/livewire/update', $handle);
-            });
-        }
 
         // Pastikan akun default admin dan member selalu sinkron dan terverifikasi
         try {
