@@ -31,12 +31,8 @@ class AuthenticatedSessionController extends Controller
         $user = $request->user();
         $isAdmin = str_ends_with($user->email, '@ismy.or.id') || $user->email === 'admin@ismy.or.id';
 
-        $intended = session()->get('url.intended', '');
-        
-        // Jika bukan admin dan intended URL mengarah ke /admin, alihkan langsung ke dashboard anggota
-        if (!$isAdmin && str_contains($intended, 'admin')) {
-            session()->forget('url.intended');
-            return redirect()->route('dashboard');
+        if ($isAdmin) {
+            return redirect()->intended('/admin');
         }
 
         return redirect()->intended(route('dashboard', absolute: false));

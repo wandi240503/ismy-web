@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->login()
             ->brandName('ISMY Admin')
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.5rem')
