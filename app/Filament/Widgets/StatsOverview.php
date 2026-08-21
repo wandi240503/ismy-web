@@ -15,10 +15,29 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        $totalAnggota = Anggota::count();
-        $pendingPendaftaran = PendaftaranAnggota::where('status_verifikasi', 'pending')->count();
-        $totalBerita = Berita::count();
-        $totalKegiatan = Kegiatan::count();
+        try {
+            $totalAnggota = Anggota::count();
+        } catch (\Throwable $e) {
+            $totalAnggota = 0;
+        }
+
+        try {
+            $pendingPendaftaran = PendaftaranAnggota::where('status_verifikasi', 'pending')->count();
+        } catch (\Throwable $e) {
+            $pendingPendaftaran = 0;
+        }
+
+        try {
+            $totalBerita = Berita::count();
+        } catch (\Throwable $e) {
+            $totalBerita = 0;
+        }
+
+        try {
+            $totalKegiatan = Kegiatan::count();
+        } catch (\Throwable $e) {
+            $totalKegiatan = 0;
+        }
 
         return [
             Stat::make('Total Anggota Terdaftar', $totalAnggota)

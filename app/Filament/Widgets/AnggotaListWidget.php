@@ -40,7 +40,6 @@ class AnggotaListWidget extends BaseWidget
                     ->placeholder('Pusat DIY'),
                 Tables\Columns\TextColumn::make('kegiatan_count')
                     ->label('Keaktifan Partisipasi')
-                    ->counts('kegiatan')
                     ->sortable()
                     ->badge()
                     ->color(fn (int $state): string => match (true) {
