@@ -1,0 +1,13 @@
+.git
+.github
+node_modules
+tests
+public/storage
+storage/logs/*
+.env
+.env.*
+Homestead.json
+Homestead.yaml
+_ide_helper.php
+.phpunit.result.cache
+.phpunit.cache
