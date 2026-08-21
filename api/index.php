@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
@@ -16,11 +17,11 @@ $directories = [
 
 foreach ($directories as $dir) {
     if (!is_dir($dir)) {
-        mkdir($dir, 0755, true);
+        @mkdir($dir, 0777, true);
     }
 }
 
-// 2. Override default storage path
+// 2. Set environment variable for storage
 putenv("APP_STORAGE={$storagePath}");
 $_ENV['APP_STORAGE'] = $storagePath;
 $_SERVER['APP_STORAGE'] = $storagePath;
@@ -29,13 +30,11 @@ $_SERVER['APP_STORAGE'] = $storagePath;
 require __DIR__ . '/../vendor/autoload.php';
 
 // 4. Bootstrap Laravel Application
+/** @var Application $app */
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// 5. Explicitly bind /tmp storage path to application
+// 5. Bind storage path
 $app->useStoragePath($storagePath);
 
-// 6. Handle Incoming Request
-$request = Request::capture();
-$response = $app->handleRequest($request);
-
-$response->send();
+// 6. Handle Request and send response (Laravel 11 native)
+$app->handleRequest(Request::capture());
