@@ -68,7 +68,19 @@ try {
     // 6. Bind storage path
     $app->useStoragePath($storagePath);
 
-    // 7. Handle Request
+    // 7. Auto-migrate SQLite if tables do not exist yet
+    $app->booted(function () {
+        try {
+            if (!\Illuminate\Support\Facades\Schema::hasTable('beritas')) {
+                \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+                \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+            }
+        } catch (\Throwable $e) {
+            // Silently ignore or log if migration fails
+        }
+    });
+
+    // 8. Handle Request
     $app->handleRequest(\Illuminate\Http\Request::capture());
 } catch (\Throwable $e) {
     http_response_code(500);
