@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "framework": null,
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.3",
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/(build|css|js|images|fonts|favicon.ico|favicon.png|logo.png|robots.txt|PANDUAN_PENGGUNAAN_ISMY.docx)(.*)",
+      "dest": "/public/$1$2"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    }
+  ],
+  "env": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "APP_CONFIG_CACHE": "/tmp/storage/framework/cache/config.php",
+    "APP_EVENTS_CACHE": "/tmp/storage/framework/cache/events.php",
+    "APP_PACKAGES_CACHE": "/tmp/storage/framework/cache/packages.php",
+    "APP_ROUTES_CACHE": "/tmp/storage/framework/cache/routes.php",
+    "APP_SERVICES_CACHE": "/tmp/storage/framework/cache/services.php",
+    "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
+    "CACHE_STORE": "array",
+    "SESSION_DRIVER": "cookie",
+    "LOG_CHANNEL": "stderr"
+  }
+}
