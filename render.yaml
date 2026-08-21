@@ -1,0 +1,50 @@
+databases:
+  - name: ismy-db
+    databaseName: ismy
+    user: ismy_user
+    plan: free
+    region: singapore
+
+services:
+  - type: web
+    name: ismy-web
+    runtime: docker
+    plan: free
+    region: singapore
+    envVars:
+      - key: APP_NAME
+        value: "ISMY Yogyakarta"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: ismy-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ismy-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: ismy-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ismy-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ismy-db
+          property: password
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: sync

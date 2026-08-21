@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Panduan Lengkap Penggunaan Sistem Web ISMY</title>
+<style>
+body { font-family: 'Calibri', 'Segoe UI', 'Arial', sans-serif; line-height: 1.6; color: #1a1a1a; font-size: 11pt; margin: 40px; }
+h1 { color: #0F4C3A; font-size: 18pt; font-family: 'Georgia', serif; border-bottom: 2px solid #C9A227; padding-bottom: 6px; margin-top: 24pt; }
+h2 { color: #003426; font-size: 14pt; font-family: 'Georgia', serif; margin-top: 18pt; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; }
+h3 { color: #0F4C3A; font-size: 12pt; margin-top: 14pt; }
+table { border-collapse: collapse; width: 100%; margin: 14pt 0; font-size: 10pt; }
+th, td { border: 1px solid #94a3b8; padding: 6pt 10pt; text-align: left; }
+th { background-color: #0F4C3A; color: #ffffff; font-weight: bold; }
+tr:nth-child(even) { background-color: #f8fafc; }
+pre, code { font-family: 'Consolas', 'Courier New', monospace; background-color: #f1f5f9; font-size: 9.5pt; }
+pre { padding: 10pt; border-left: 4px solid #0F4C3A; background-color: #f8fafc; overflow-x: auto; }
+ul, ol { margin: 6pt 0; padding-left: 24pt; }
+li { margin-bottom: 4pt; }
+hr { border: none; border-top: 1.5px solid #cbd5e1; margin: 18pt 0; }
+blockquote { border-left: 4px solid #C9A227; padding: 8pt 12pt; color: #334155; margin: 12pt 0; background-color: #fefce8; }
+strong { color: #0F4C3A; }
+</style>
+</head>
+<body>
+
+<h1>PANDUAN LENGKAP PENGGUNAAN SISTEM WEBSITE</h1>
+<h1>IKATAN SARJANA MELAYU YOGYAKARTA (ISMY)</h1>
+<p><strong>Dokumen Resmi Petunjuk Teknis, Panduan Operasional &amp; Penjelasan UI/UX</strong></p>
+<p></p>
+<hr/>
+<p></p>
+<ul><li><strong>Nama Sistem:</strong> Web Portal &amp; Manajemen Keanggotaan ISMY</li></ul>
+<ul><li><strong>Organisasi:</strong> Ikatan Sarjana Melayu Yogyakarta (ISMY)</li></ul>
+<ul><li><strong>Versi Sistem:</strong> 1.0 (Rilis Stabil)</li></ul>
+<ul><li><strong>Teknologi:</strong> Laravel 11, Filament 3 Admin, PostgreSQL, TailwindCSS, DomPDF, BaconQrCode, Alpine.js</li></ul>
+<ul><li><strong>Target Pembaca:</strong> Pengunjung Publik, Anggota Terdaftar, dan Administrator Sistem</li></ul>
+<p></p>
+<hr/>
+<p></p>
+<h2>DAFTAR ISI</h2>
+<p></p>
+<ol><li><strong>BAB 1: PENGENALAN SISTEM WEBSITE ISMY</strong></li></ol>
+<ul><li>1.1 Latar Belakang &amp; Tujuan Web</li></ul>
+<ul><li>1.2 Hak Akses &amp; Peran Pengguna (<em>User Roles</em>)</li></ul>
+<ul><li>1.3 Struktur URL &amp; Akses Halaman</li></ul>
+<ol><li><strong>BAB 2: PANDUAN PENGGUNA PUBLIK (TAMU &amp; CALON ANGGOTA)</strong></li></ol>
+<ul><li>2.1 Menjelajahi Menu Beranda &amp; Navigasi</li></ul>
+<ul><li>2.2 Membaca Berita, Artikel &amp; Kategori Publikasi</li></ul>
+<ul><li>2.3 Profil Organisasi, Visi Misi, Sejarah &amp; Unduh AD/ART</li></ul>
+<ul><li>2.4 Struktur Kepengurusan &amp; Jaringan Cabang se-DIY</li></ul>
+<ul><li>2.5 Fitur Pencarian Global (<em>Smart Search Engine</em>)</li></ul>
+<ul><li>2.6 Panduan Langkah Demi Langkah Mendaftar Anggota Baru</li></ul>
+<ol><li><strong>BAB 3: PANDUAN PORTAL ANGGOTA (MEMBER DASHBOARD)</strong></li></ol>
+<ul><li>3.1 Masuk Akun (<em>Login Member</em>)</li></ul>
+<ul><li>3.2 Fitur Dashboard &amp; Kartu Tanda Anggota (KTA) Digital</li></ul>
+<ul><li>3.3 Cara Mengunduh Kartu Anggota Resmi (Format PDF Cetak)</li></ul>
+<ul><li>3.4 Memantau Riwayat Partisipasi Agenda &amp; Kegiatan</li></ul>
+<ul><li>3.5 Mengelola Profil Akun &amp; Keamanan Kata Sandi</li></ul>
+<ol><li><strong>BAB 4: PANDUAN LENGKAP ADMINISTRATOR (PANEL FILAMENT ADMIN)</strong></li></ol>
+<ul><li>4.1 Masuk ke Panel Administrator (<code>/admin</code>)</li></ul>
+<ul><li>4.2 Verifikasi Calon Anggota (Fitur 1-Klik <em>Approval</em> &amp; Pembuatan Akun Otomatis)</li></ul>
+<ul><li>4.3 Manajemen Data Anggota Aktif &amp; Direktori</li></ul>
+<ul><li>4.4 Manajemen Berita &amp; Artikel Ilmiah</li></ul>
+<ul><li>4.5 Manajemen Kategori Berita &amp; Tag</li></ul>
+<ul><li>4.6 Manajemen Agenda &amp; Kegiatan Organisasi</li></ul>
+<ul><li>4.7 Manajemen Dokumen Legalitas (AD/ART, SK, LPJ)</li></ul>
+<ul><li>4.8 Manajemen Galeri Dokumentasi Foto &amp; Video</li></ul>
+<ul><li>4.9 Manajemen Struktur Pengurus &amp; Master Jabatan</li></ul>
+<ul><li>4.10 Manajemen Wilayah Cabang DIY</li></ul>
+<ul><li>4.11 Manajemen Mitra &amp; Kerjasama</li></ul>
+<ul><li>4.12 Pengelolaan Tanya Jawab (FAQ) &amp; Kotak Pesan Masuk</li></ul>
+<ol><li><strong>BAB 5: PENJELASAN KONSEP &amp; FILOSOFI DESAIN UI/UX</strong></li></ol>
+<ul><li>5.1 Konsep Visual <em>&quot;Malay Heritage meets Modern Academic&quot;</em></li></ul>
+<ul><li>5.2 Standar Palet Warna &amp; Nilai Filosofis</li></ul>
+<ul><li>5.3 Tipografi &amp; Hierarki Font</li></ul>
+<ul><li>5.4 Fitur Pengalaman Pengguna (<em>User Experience Highlights</em>)</li></ul>
+<ul><li>5.5 Teknologi Grafis Vektor (SVG) &amp; Keamanan Cetak</li></ul>
+<ol><li><strong>LAMPIRAN &amp; INFORMASI TEKNIS</strong></li></ol>
+<p></p>
+<hr/>
+<p></p>
+<h1>BAB 1: PENGENALAN SISTEM WEBSITE ISMY</h1>
+<p></p>
+<h2>1.1 Latar Belakang &amp; Tujuan Web</h2>
+<p>Website resmi <strong>Ikatan Sarjana Melayu Yogyakarta (ISMY)</strong> dirancang sebagai pusat informasi, media publikasi pemikiran akademis, serta platform digital pengelolaan keanggotaan para cendekiawan, sarjana, profesional, dan mahasiswa pascasarjana rumpun Melayu di Daerah Istimewa Yogyakarta.</p>
+<p></p>
+<p>Website ini bertujuan untuk:</p>
+<ol><li>Menjadi gerbang informasi resmi kegiatan, riset, dan artikel kebudayaan ISMY.</li></ol>
+<ol><li>Memfasilitasi pendaftaran anggota baru secara daring (<em>online</em>).</li></ol>
+<ol><li>Menerbitkan Kartu Tanda Anggota (KTA) digital yang dilengkapi <strong>QR Code verifikasi resmi</strong> dan dapat diunduh dalam format PDF siap cetak.</li></ol>
+<ol><li>Memberikan sarana pengelolaan konten (<em>Content Management System</em>) yang mudah, cepat, dan terpusat bagi jajaran pengurus admin.</li></ol>
+<p></p>
+<h2>1.2 Hak Akses &amp; Peran Pengguna (*User Roles*)</h2>
+<p>Sistem website ISMY membagi hak akses ke dalam 3 kategori pengguna:</p>
+<p></p>
+<table>
+<thead><tr><th>Peran Pengguna</th><th>Deskripsi Hak Akses</th><th>Area Akses Utama</th></tr></thead><tbody>
+<tr><td><strong>Pengunjung Publik</strong></td><td>Tamu umum tanpa login. Dapat melihat berita, profil, AD/ART, bagan organisasi, melakukan pencarian, dan mengisi formulir pendaftaran anggota.</td><td>Halaman Depan Publik (`/`, `/berita`, `/tentang-kami`, `/keanggotaan`)</td></tr>
+<tr><td><strong>Anggota Terdaftar</strong></td><td>Sarjana Melayu yang telah memiliki akun dan disetujui. Memiliki akses ke kartu anggota digital, unduh PDF KTA, dan riwayat kegiatan.</td><td>Portal Member (`/dashboard`, `/profile`)</td></tr>
+<tr><td><strong>Administrator</strong></td><td>Pengurus yang berwenang memverifikasi data anggota, menerbitkan akun, mempublikasikan berita, agenda, dokumen, dan mengelola struktur organisasi.</td><td>Panel Admin Filament (`/admin`)</td></tr>
+</tbody></table>
+<p></p>
+<h2>1.3 Struktur URL &amp; Akses Halaman</h2>
+<ul><li>Halaman Utama (Beranda): <code>http://127.0.0.1:8000/</code></li></ul>
+<ul><li>Profil &amp; Sejarah: <code>http://127.0.0.1:8000/tentang-kami</code></li></ul>
+<ul><li>Struktur Organisasi: <code>http://127.0.0.1:8000/struktur-organisasi</code></li></ul>
+<ul><li>Berita &amp; Opini: <code>http://127.0.0.1:8000/berita</code></li></ul>
+<ul><li>Pendaftaran Keanggotaan: <code>http://127.0.0.1:8000/keanggotaan</code></li></ul>
+<ul><li>Pencarian Data: <code>http://127.0.0.1:8000/pencarian</code></li></ul>
+<ul><li>Portal Login Anggota: <code>http://127.0.0.1:8000/login</code></li></ul>
+<ul><li>Dashboard Anggota: <code>http://127.0.0.1:8000/dashboard</code></li></ul>
+<ul><li>Panel Administrator: <code>http://127.0.0.1:8000/admin</code></li></ul>
+<p></p>
+<hr/>
+<p></p>
+<h1>BAB 2: PANDUAN PENGGUNA PUBLIK (TAMU &amp; CALON ANGGOTA)</h1>
+<p></p>
+<h2>2.1 Menjelajahi Menu Beranda &amp; Navigasi</h2>
+<ol><li>Buka peramban (<em>web browser</em>) dan akses alamat website ISMY.</li></ol>
+<ol><li>Di bagian atas layar terdapat navigasi utama (<em>Navbar Glassmorphism</em>):</li></ol>
+<ul><li><strong>Logo ISMY</strong>: Klik untuk kembali ke Beranda kapan saja.</li></ul>
+<ul><li><strong>Menu Utama</strong>: Tautan langsung ke <em>Beranda, Tentang Kami, Struktur Organisasi, Berita,</em> dan <em>Keanggotaan</em>.</li></ul>
+<ul><li><strong>Ikon Kaca Pembesar</strong>: Membuka kolom pencarian instan.</li></ul>
+<ul><li><strong>Tombol Daftar Anggota</strong>: Akses cepat menuju formulir pendaftaran.</li></ul>
+<ul><li><strong>Tombol Masuk</strong>: Masuk ke portal anggota terdaftar.</li></ul>
+<ol><li>Halaman Beranda memuat:</li></ol>
+<ul><li><strong>Banner Utama (Hero Section)</strong>: Sambutan visi intelektual Melayu.</li></ul>
+<ul><li><strong>Statistik Organisasi</strong>: Jumlah anggota aktif, cabang daerah DIY, agenda tahunan, dan tahun berdiri (1998).</li></ul>
+<ul><li><strong>Kabar ISMY Terbaru</strong>: 3 cuplikan berita terbaru dengan thumbnail, tanggal terbit, dan kategori.</li></ul>
+<ul><li><strong>Call-to-Action</strong>: Tautan ajakan bergabung menjadi anggota.</li></ul>
+<p></p>
+<h2>2.2 Membaca Berita, Artikel &amp; Kategori Publikasi</h2>
+<ol><li>Klik menu <strong>Berita</strong> pada navbar atas.</li></ol>
+<ol><li>Anda akan diarahkan ke Pusat Informasi (<code>/berita</code>).</li></ol>
+<ol><li><strong>Memilih Kategori</strong>: Klik salah satu tombol filter kategori di bagian atas (<em>Semua, Kegiatan, Pengumuman, Opini, Prestasi Anggota, Kebudayaan</em>).</li></ol>
+<ol><li><strong>Membaca Artikel Lengkap</strong>: Klik judul berita atau tombol <em>&quot;Baca Selengkapnya&quot;</em>.</li></ol>
+<ol><li>Di halaman <strong>Detail Berita</strong> (<code>/berita/{slug}</code>), Anda dapat melihat:</li></ol>
+<ul><li>Judul artikel, nama penulis, tanggal terbit, dan total pembaca (<em>view counter</em>).</li></ul>
+<ul><li>Gambar utama artikel.</li></ul>
+<ul><li>Isi lengkap artikel yang diformat rapi.</li></ul>
+<ul><li>Rekomendasi 3 artikel berita terkait di bagian bawah.</li></ul>
+<p></p>
+<h2>2.3 Profil Organisasi, Visi Misi, Sejarah &amp; Unduh AD/ART</h2>
+<ol><li>Klik menu <strong>Tentang Kami</strong> (<code>/tentang-kami</code>).</li></ol>
+<ol><li>Pelajari sejarah berdirinya ISMY serta <em>milestone</em> penting organisasi (1998: Gagasan Awal, 2005: Deklarasi Resmi, 2024: Transformasi Digital &amp; Riset).</li></ol>
+<ol><li>Simak rumusan <strong>Visi &amp; 4 Misi Utama</strong> serta <strong>4 Nilai Inti</strong> (Integritas, Kolaborasi, Keilmuan, Kebudayaan).</li></ol>
+<ol><li><strong>Unduh Berkas AD/ART</strong>:</li></ol>
+<ul><li>Gulir ke bagian <em>&quot;Dokumen Legalitas &amp; AD-ART&quot;</em>.</li></ul>
+<ul><li>Klik tombol <strong>&quot;Unduh Berkas&quot;</strong> untuk mendownload salinan resmi anggaran dasar dan anggaran rumah tangga organisasi.</li></ul>
+<ol><li><strong>Pertanyaan Umum (FAQ)</strong>:</li></ol>
+<ul><li>Klik pada daftar pertanyaan yang tersedia untuk membuka jawaban penjelasan (<em>accordion toggle</em>).</li></ul>
+<p></p>
+<h2>2.4 Struktur Kepengurusan &amp; Jaringan Cabang se-DIY</h2>
+<ol><li>Klik menu <strong>Struktur Organisasi</strong> (<code>/struktur-organisasi</code>).</li></ol>
+<ol><li><strong>Bagan Hierarki Organisasi</strong>: Menampilkan alur kepemimpinan dari Majelis Syura/Dewan Pembina, Ketua Umum, Sekretaris Jenderal, Bendahara Umum, hingga Departemen Teknis.</li></ol>
+<ol><li><strong>Pengurus Inti</strong>: Melihat profil tokoh penggerak, nama lengkap, gelar akademis, dan foto resmi pengurus.</li></ol>
+<ol><li><strong>Cabang Daerah DIY</strong>: Melihat daftar koordinator cabang di wilayah Kota Yogyakarta, Sleman, Bantul, Kulon Progo, dan Gunungkidul.</li></ol>
+<p></p>
+<h2>2.5 Fitur Pencarian Global (*Smart Search Engine*)</h2>
+<ol><li>Klik ikon pencarian pada navbar atau akses <code>/pencarian</code>.</li></ol>
+<ol><li>Masukkan kata kunci pencarian (contoh: <em>&quot;kebudayaan&quot;</em>, <em>&quot;simposium&quot;</em>, <em>&quot;UGM&quot;</em>, <em>&quot;Sleman&quot;</em>, atau nama tokoh).</li></ol>
+<ol><li>Tekan tombol <strong>Cari</strong> atau tekan tombol <code>Enter</code>.</li></ol>
+<ol><li>Sistem akan menampilkan seluruh data terkait yang dikelompokkan secara otomatis ke dalam:</li></ol>
+<ul><li><strong>Berita &amp; Artikel</strong></li></ul>
+<ul><li><strong>Kegiatan &amp; Agenda</strong></li></ul>
+<ul><li><strong>Dokumen Resmi</strong></li></ul>
+<ul><li><strong>Direktori Anggota Publik</strong> (hanya menampilkan data nama, keahlian, dan nomor anggota tanpa membuka privasi kontak).</li></ul>
+<p></p>
+<h2>2.6 Panduan Langkah Demi Langkah Mendaftar Anggota Baru</h2>
+<p>Bagi para sarjana, akademisi, dan mahasiswa serumpun Melayu di Yogyakarta, pendaftaran keanggotaan dilakukan dengan langkah berikut:</p>
+<p></p>
+<pre>
+[Buka /keanggotaan] ➔ [Isi Formulir &amp; Kontak] ➔ [Upload Foto &amp; KTP] ➔ [Kirim] ➔ [Tinjauan Admin]
+</pre>
+<p></p>
+<ol><li>Buka menu <strong>Keanggotaan</strong> (<code>/keanggotaan</code>).</li></ol>
+<ol><li>Baca syarat &amp; ketentuan keanggotaan.</li></ol>
+<ol><li>Gulir ke bagian <strong>Formulir Pendaftaran</strong> dan isi data berikut:</li></ol>
+<ul><li><strong>Nama Lengkap (beserta gelar):</strong> Contoh: <code>Dr. Fulan bin Fulan, M.A.</code></li></ul>
+<ul><li><strong>NIK:</strong> 16 digit Nomor Induk Kependudukan.</li></ul>
+<ul><li><strong>Tempat &amp; Tanggal Lahir:</strong> Kota kelahiran dan tanggal lahir.</li></ul>
+<ul><li><strong>Alamat Domisili:</strong> Alamat tempat tinggal saat ini di Yogyakarta.</li></ul>
+<ul><li><strong>Pendidikan Terakhir:</strong> Pilih jenjang (<em>S1, S2, S3, atau Profesi</em>).</li></ul>
+<ul><li><strong>Bidang Keahlian / Rumpun Ilmu:</strong> Contoh: <code>Linguistik Melayu, Sosiologi, Hukum Islam, Kedokteran</code>.</li></ul>
+<ul><li><strong>Nomor Telepon / WhatsApp:</strong> Nomor kontak aktif untuk verifikasi.</li></ul>
+<ul><li><strong>Alamat Email:</strong> Email aktif yang akan digunakan sebagai akun login Anda.</li></ul>
+<ol><li><strong>Unggah Berkas Pendukung</strong>:</li></ol>
+<ul><li><strong>Pas Foto:</strong> Format JPG/PNG (ukuran maks. 2MB, latar merah/biru disarankan).</li></ul>
+<ul><li><strong>Kartu Identitas (KTP/Paspor):</strong> Format JPG/PNG/PDF (maks. 2MB).</li></ul>
+<ol><li>Klik tombol <strong>&quot;Kirim Pendaftaran&quot;</strong>.</li></ol>
+<ol><li>Muncul notifikasi sukses: <em>&quot;Pendaftaran Anda telah berhasil dikirim! Tim kami akan meninjau berkas Anda.&quot;</em></li></ol>
+<ol><li>Tunggu proses verifikasi oleh pengurus ISMY (biasanya 1x24 jam).</li></ol>
+<p></p>
+<hr/>
+<p></p>
+<h1>BAB 3: PANDUAN PORTAL ANGGOTA (MEMBER DASHBOARD)</h1>
+<p></p>
+<h2>3.1 Masuk Akun (*Login Member*)</h2>
+<ol><li>Klik tombol <strong>Masuk</strong> pada navigasi atas atau akses URL <code>/login</code>.</li></ol>
+<ol><li>Masukkan <strong>Email</strong> dan <strong>Password</strong> yang telah didaftarkan.</li></ol>
+<ol><li>Klik tombol <strong>Log in</strong>.</li></ol>
+<ol><li>Anda akan langsung diarahkan ke Dashboard Anggota (<code>/dashboard</code>).</li></ol>
+<p></p>
+<h2>3.2 Fitur Dashboard &amp; Kartu Tanda Anggota (KTA) Digital</h2>
+<p>Di dalam dashboard anggota, Anda akan melihat tampilan interaktif berupa:</p>
+<ol><li><strong>Kartu Anggota Digital</strong>:</li></ol>
+<ul><li>Desain bernuansa hijau zamrud dan emas dengan motif Melayu.</li></ul>
+<ul><li>Menampilkan Logo ISMY, Nama Lengkap Anda, Bidang Keahlian, dan Nomor Anggota Resmi (<code>ISMY-0000X</code>).</li></ul>
+<ul><li>Badge status: <strong>AKTIF</strong>.</li></ul>
+<ul><li><strong>QR Code Interaktif</strong>: QR Code khusus yang merepresentasikan nomor keanggotaan Anda untuk verifikasi lapangan saat menghadiri kegiatan resmi.</li></ul>
+<ol><li><strong>Ringkasan Informasi Profil</strong>:</li></ol>
+<ul><li>Nomor Anggota, Status Verifikasi, Email Akun, dan Nomor Telepon.</li></ul>
+<p></p>
+<h2>3.3 Cara Mengunduh Kartu Anggota Resmi (Format PDF Cetak)</h2>
+<ol><li>Di halaman Dashboard, perhatikan tombol di kanan atas banner: <strong>&quot;Unduh Kartu PDF&quot;</strong>.</li></ol>
+<ol><li>Klik tombol tersebut.</li></ol>
+<ol><li>Sistem secara otomatis memproses template PDF berukuran standar <strong>A6 Landscape</strong> dengan resolusi vektor yang jernih.</li></ol>
+<ol><li>File PDF akan otomatis terunduh ke perangkat Anda dengan nama: <code>Kartu-Anggota-ISMY-xxxxx.pdf</code>.</li></ol>
+<ol><li>Kartu PDF ini siap disimpan di ponsel cerdas atau dicetak pada kartu PVC fisik.</li></ol>
+<p></p>
+<h2>3.4 Memantau Riwayat Partisipasi Agenda &amp; Kegiatan</h2>
+<p>Pada kolom sebelah kanan dashboard, terdapat panel <strong>Riwayat Kegiatan Diikuti</strong>. Di panel ini Anda dapat melihat:</p>
+<ul><li>Judul kegiatan atau sarasehan ilmiah yang Anda ikuti.</li></ul>
+<ul><li>Tanggal pelaksanaan.</li></ul>
+<ul><li>Status kehadiran (<em>Terdaftar, Hadir, atau Batal</em>).</li></ul>
+<p></p>
+<h2>3.5 Mengelola Profil Akun &amp; Keamanan Kata Sandi</h2>
+<ol><li>Akses menu <strong>Profil</strong> melalui URL <code>/profile</code>.</li></ol>
+<ol><li>Di halaman ini Anda dapat:</li></ol>
+<ul><li>Memperbarui Nama dan Alamat Email.</li></ul>
+<ul><li>Mengubah Kata Sandi (<em>Update Password</em>): Masukkan kata sandi lama dan tentukan kata sandi baru.</li></ul>
+<ul><li>Menghapus akun jika diperlukan.</li></ul>
+<p></p>
+<hr/>
+<p></p>
+<h1>BAB 4: PANDUAN ADMINISTRATOR (PANEL FILAMENT ADMIN)</h1>
+<p></p>
+<h2>4.1 Masuk ke Panel Administrator (`/admin`)</h2>
+<ol><li>Buka browser dan akses alamat: <code>http://127.0.0.1:8000/admin</code>.</li></ol>
+<ol><li>Masukkan kredensial administrator:</li></ol>
+<ul><li><strong>Email:</strong> <code>admin@ismy.or.id</code></li></ul>
+<ul><li><strong>Password:</strong> <code>password</code></li></ul>
+<ol><li>Klik tombol <strong>Sign In</strong>.</li></ol>
+<ol><li>Anda akan disambut oleh Dashboard Admin Filament dengan menu navigasi di bilah sisi kiri (<em>sidebar</em>).</li></ol>
+<p></p>
+<h2>4.2 Verifikasi Calon Anggota (Fitur 1-Klik *Approval*)</h2>
+<p>Ketika calon anggota mendaftar melalui web publik, data pendaftaran akan masuk ke antrean verifikasi.</p>
+<p></p>
+<p><strong>Langkah Memverifikasi &amp; Menerbitkan Akun:</strong></p>
+<ol><li>Di sidebar kiri, buka menu <strong>Keanggotaan &gt; Pendaftaran Baru</strong>.</li></ol>
+<ol><li>Anda akan melihat tabel pendaftar dengan status <em>Pending, Disetujui,</em> atau <em>Ditolak</em>.</li></ol>
+<ol><li>Klik baris pendaftar atau klik tombol <strong>Edit</strong> untuk memeriksa kelengkapan data dan berkas foto/KTP.</li></ol>
+<ol><li>Untuk menyetujui pendaftaran, klik tombol hijau <strong>&quot;Setujui &amp; Terbitkan Akun&quot;</strong>:</li></ol>
+<ul><li>Sistem secara otomatis membuatkan akun <code>User</code> baru untuk pendaftar.</li></ul>
+<ul><li>Sistem membuat record profil <code>Anggota</code> resmi dan menerbitkan <strong>Nomor Anggota ISMY Unik</strong>.</li></ul>
+<ul><li>Status pendaftaran otomatis berubah menjadi <code>disetujui</code>.</li></ul>
+<ul><li>Muncul notifikasi sukses di pojok kanan atas.</li></ul>
+<p></p>
+<h2>4.3 Manajemen Data Anggota Aktif &amp; Direktori</h2>
+<ol><li>Buka menu <strong>Keanggotaan &gt; Daftar Anggota</strong>.</li></ol>
+<ol><li>Anda dapat melihat seluruh anggota yang telah terdaftar resmi beserta nomor keanggotaan dan cabang wilayahnya.</li></ol>
+<ol><li>Fitur yang tersedia:</li></ol>
+<ul><li><strong>Tambah Anggota Manual:</strong> Klik tombol <em>&quot;New Anggota&quot;</em> jika admin ingin mendaftarkan anggota secara langsung dari internal.</li></ul>
+<ul><li><strong>Ubah Data:</strong> Memperbarui gelar, cabang wilayah, foto, atau mengubah status (<em>Aktif, Nonaktif, Anggota Kehormatan</em>).</li></ul>
+<ul><li><strong>Filter:</strong> Menyaring anggota berdasarkan cabang wilayah (Sleman, Bantul, dll.) dan status keanggotaan.</li></ul>
+<p></p>
+<h2>4.4 Manajemen Berita &amp; Artikel Ilmiah</h2>
+<ol><li>Buka menu <strong>Publikasi &amp; Konten &gt; Berita &amp; Artikel</strong>.</li></ol>
+<ol><li>Klik tombol <strong>&quot;New Berita &amp; Artikel&quot;</strong> untuk mempublikasikan artikel baru.</li></ol>
+<ol><li><strong>Formulir Berita:</strong></li></ol>
+<ul><li><strong>Judul Berita:</strong> Ketik judul artikel. Kolom <em>Slug URL</em> akan terisi secara otomatis (<em>auto-slug</em>).</li></ul>
+<ul><li><strong>Isi Konten:</strong> Gunakan editor teks kaya (<em>Rich Editor</em>) untuk memformat paragraf, tebal, miring, daftar poin, kutipan, dan tautan.</li></ul>
+<ul><li><strong>Kategori:</strong> Pilih kategori berita dari dropdown (dapat membuat kategori baru langsung di tempat).</li></ul>
+<ul><li><strong>Tanggal Terbit:</strong> Tentukan tanggal rilis artikel.</li></ul>
+<ul><li><strong>Penulis:</strong> Nama penulis artikel (default: <em>Admin ISMY</em>).</li></ul>
+<ul><li><strong>Gambar Utama:</strong> Unggah poster atau foto dokumentasi berita.</li></ul>
+<ol><li>Klik <strong>Create</strong> untuk menerbitkan berita ke halaman web publik.</li></ol>
+<p></p>
+<h2>4.5 Manajemen Kategori Berita &amp; Tag</h2>
+<ol><li>Buka menu <strong>Publikasi &amp; Konten &gt; Kategori Berita</strong>.</li></ol>
+<ol><li>Di sini admin dapat menambah, mengubah, atau menghapus kategori berita (misal: <em>Opini, Riset Kebudayaan, Pengumuman, Agenda, Prestasi</em>).</li></ol>
+<p></p>
+<h2>4.6 Manajemen Agenda &amp; Kegiatan Organisasi</h2>
+<ol><li>Buka menu <strong>Publikasi &amp; Konten &gt; Agenda &amp; Kegiatan</strong>.</li></ol>
+<ol><li>Klik <strong>&quot;New Agenda &amp; Kegiatan&quot;</strong>.</li></ol>
+<ol><li>Lengkapi formulir: Nama Kegiatan, Tanggal, Jam Pelaksanaan (<em>TimePicker</em>), Lokasi Acara, Kuota Peserta, dan Unggah Poster.</li></ol>
+<ol><li>Klik <strong>Create</strong>. Kegiatan yang aktif otomatis muncul pada halaman beranda dan direktori pencarian.</li></ol>
+<p></p>
+<h2>4.7 Manajemen Dokumen Legalitas (AD/ART, SK, LPJ)</h2>
+<ol><li>Buka menu <strong>Publikasi &amp; Konten &gt; Dokumen &amp; Regulasi</strong>.</li></ol>
+<ol><li>Klik <strong>&quot;New Dokumen &amp; Regulasi&quot;</strong>.</li></ol>
+<ol><li>Masukkan Judul Dokumen, pilih Kategori (<em>AD/ART Organisasi, SK, Laporan LPJ, atau Dokumen Umum</em>), dan unggah file berkas (format PDF atau DOCX).</li></ol>
+<ol><li>Dokumen kategori <code>ad_art</code> akan otomatis tersambung ke tombol unduh berkas di halaman <em>Tentang Kami</em>.</li></ol>
+<p></p>
+<h2>4.8 Manajemen Galeri Dokumentasi Foto &amp; Video</h2>
+<ol><li>Buka menu <strong>Publikasi &amp; Konten &gt; Galeri Dokumentasi</strong>.</li></ol>
+<ol><li>Klik <strong>&quot;New Galeri Dokumentasi&quot;</strong>.</li></ol>
+<ol><li>Masukkan Nama Album, Tanggal Kegiatan, dan Keterangan.</li></ol>
+<ol><li>Pada bagian <strong>Daftar Foto / Video</strong>, klik tombol <strong>&quot;Add to media&quot;</strong> (<em>Repeater</em>) untuk mengunggah beberapa foto dokumentasi sekaligus beserta keterangan masing-masing foto.</li></ol>
+<p></p>
+<h2>4.9 Manajemen Struktur Pengurus &amp; Master Jabatan</h2>
+<ol><li><strong>Master Jabatan</strong>: Buka menu <strong>Kepengurusan &amp; Wilayah &gt; Jabatan Organisasi</strong> untuk menambah jabatan (contoh: <em>Dewan Pembina, Ketua Umum, Sekretaris Jenderal, Bendahara Umum, Ketua Departemen</em>).</li></ol>
+<ol><li><strong>Jajaran Pengurus</strong>: Buka menu <strong>Kepengurusan &amp; Wilayah &gt; Jajaran Pengurus</strong>.</li></ol>
+<ul><li>Tambahkan nama tokoh pengurus, pilih jabatan dari dropdown, tentukan periode (contoh: <code>2024-2026</code>), unggah pas foto avatar, dan tentukan <strong>Nomor Urutan Tampilan</strong> (angka 1 untuk ketua, 2 untuk sekjen, dst.).</li></ul>
+<p></p>
+<h2>4.10 Manajemen Wilayah Cabang DIY</h2>
+<ol><li>Buka menu <strong>Kepengurusan &amp; Wilayah &gt; Cabang &amp; Wilayah</strong>.</li></ol>
+<ol><li>Kelola daftar cabang kabupaten/kota di DIY (Sleman, Bantul, Kota Yogyakarta, Kulon Progo, Gunungkidul) beserta kode wilayah dan alamat sekretariatnya.</li></ol>
+<p></p>
+<h2>4.11 Manajemen Mitra &amp; Kerjasama</h2>
+<ol><li>Buka menu <strong>Kemitraan &gt; Mitra &amp; Kerjasama</strong>.</li></ol>
+<ol><li>Tambahkan nama instansi mitra (contoh: <em>UGM, UNY, Pemda DIY, Keraton Yogyakarta</em>), unggah logo kemitraan, dan tulis deskripsi bentuk kerjasama.</li></ol>
+<p></p>
+<h2>4.12 Pengelolaan Tanya Jawab (FAQ) &amp; Kotak Pesan Masuk</h2>
+<ol><li><strong>Tanya Jawab (FAQ):</strong> Buka menu <strong>Publikasi &amp; Konten &gt; Tanya Jawab (FAQ)</strong> untuk menambah atau memperbarui pertanyaan dan jawaban yang tampil di halaman <em>Tentang Kami</em>.</li></ol>
+<ol><li><strong>Kotak Pesan:</strong> Buka menu <strong>Komunikasi &gt; Kotak Pesan</strong> untuk membaca pesan yang dikirimkan pengunjung melalui formulir kontak web. Admin dapat menandai status pesan sudah dibaca (<em>read/unread toggle</em>).</li></ol>
+<p></p>
+<hr/>
+<p></p>
+<h1>BAB 5: PENJELASAN KONSEP &amp; FILOSOFI DESAIN UI/UX</h1>
+<p></p>
+<h2>5.1 Konsep Visual *&quot;Malay Heritage meets Modern Academic&quot;*</h2>
+<p>Desain antarmuka (<em>User Interface</em>) dan alur pengalaman pengguna (<em>User Experience</em>) web ISMY mengusung identitas kebudayaan Melayu yang adiluhung, dipadukan dengan standar desain portal akademis perguruan tinggi terkemuka dunia.</p>
+<p></p>
+<p>Prinsip utama desain ini meliputi:</p>
+<ol><li><strong>Keanggunan Visual (<em>Elegance</em>):</strong> Menghadirkan kesan organisasi terhormat, terpercaya, dan berbobot ilmiah.</li></ol>
+<ol><li><strong>Kemudahan Keterbacaan (<em>High Readability</em>):</strong> Pemilihan kontras warna dan jarak antar elemen yang nyaman bagi mata.</li></ol>
+<ol><li><strong>Keringanan &amp; Responsif (<em>Speed &amp; Mobile Optimization</em>):</strong> Animasi halus tanpa membebani performa browser.</li></ol>
+<p></p>
+<h2>5.2 Standar Palet Warna &amp; Nilai Filosofis</h2>
+<p></p>
+<pre>
+[#0F4C3A Emerald Green] ── Dominasi Marwah &amp; Nilai Keislaman
+[#C9A227 Royal Gold]    ── Aksen Kejayaan Ilmu &amp; Kebudayaan Melayu
+[#FBF7EE Warm Cream]    ── Latar Belakang Hangat &amp; Ramah Mata
+[#121C2A Deep Navy]     ── Tipografi Kontras Tinggi &amp; Tegas
+</pre>
+<p></p>
+<ul><li><strong>Emerald Green / Hijau Melayu (<code>#0F4C3A</code> &amp; <code>#003426</code>):</strong> Warna primer lambang identitas persaudaraan Melayu, religiusitas yang sejuk, dan keteduhan budi pekerti.</li></ul>
+<ul><li><strong>Royal Gold / Kuning Diraja (<code>#C9A227</code> &amp; <code>#D4AF37</code>):</strong> Warna sekunder lambang keagungan adat Melayu, kemuliaan ilmu pengetahuan, dan optimisme masa depan.</li></ul>
+<ul><li><strong>Warm Cream (<code>#FBF7EE</code>):</strong> Warna dasar latar menggantikan putih murni (<em>pure white</em>) guna mencegah kelelahan mata (<em>eye fatigue</em>) saat pembaca menyimak artikel panjang.</li></ul>
+<ul><li><strong>Deep Navy &amp; Charcoal (<code>#121C2A</code>):</strong> Warna teks utama yang menjamin skor kontras teks memenuhi standar aksesibilitas internasional (WCAG AAA).</li></ul>
+<p></p>
+<h2>5.3 Tipografi &amp; Hierarki Font</h2>
+<p>Sistem tipografi menggunakan kombinasi harmonis dua font Google Fonts:</p>
+<ol><li><strong>Font Judul / Heading — <em>Playfair Display</em> (Serif):</strong></li></ol>
+<ul><li>Memberikan nuansa klasik, anggun, berwibawa, dan bernuansa karya ilmiah perguruan tinggi.</li></ul>
+<ol><li><strong>Font Isi Teks / Body — <em>Plus Jakarta Sans</em> (Sans-Serif):</strong></li></ol>
+<ul><li>Sangat bersih, modern, dengan keterbacaan (<em>legibility</em>) yang luar biasa tajam di layar ponsel pintar (<em>smartphone</em>).</li></ul>
+<p></p>
+<h2>5.4 Fitur Pengalaman Pengguna (*User Experience Highlights*)</h2>
+<ul><li><strong>Glassmorphism Header:</strong> Navigasi atas semi-transparan dengan efek kabur (<em>blur</em>) yang tetap menempel di atas saat layar digulir.</li></ul>
+<ul><li><strong>Micro-Interactions &amp; Hover Elevate:</strong> Kartu berita dan tombol aksi memberikan respon gerak halus saat kursor melintas (<em>hover scale &amp; shadow</em>).</li></ul>
+<ul><li><strong>Alpine.js Dynamic Accordion:</strong> FAQ dan menu navigasi mobile terbuka dan tertutup dengan transisi yang sangat mulus tanpa me-refresh halaman.</li></ul>
+<ul><li><strong>Pencarian Terpadu:</strong> Pengguna tidak perlu membuka menu terpisah untuk mencari berita atau dokumen; satu kotak pencarian merangkum seluruh jenis data.</li></ul>
+<p></p>
+<h2>5.5 Teknologi Grafis Vektor (SVG) &amp; Keamanan Cetak</h2>
+<p>Kartu anggota digital di dashboard dan file PDF menggunakan teknologi <strong>vektor SVG murni</strong>. Hal ini memberikan keuntungan:</p>
+<ol><li>QR Code dan logo ISMY tidak pecah (<em>pixelated</em>) meski dicetak dalam resolusi tinggi atau diperbesar.</li></ol>
+<ol><li>Proses pembuatan PDF kartu anggota berlangsung sangat cepat (kurang dari 0.5 detik) tanpa ketergantungan pada ekstensi server pihak ketiga.</li></ol>
+<p></p>
+<hr/>
+<p></p>
+<h1>LAMPIRAN &amp; INFORMASI TEKNIS</h1>
+<p></p>
+<h3>Kredensial Akses Default Sistem:</h3>
+<ul><li><strong>URL Web Publik:</strong> <code>http://127.0.0.1:8000/</code></li></ul>
+<ul><li><strong>URL Panel Admin:</strong> <code>http://127.0.0.1:8000/admin</code></li></ul>
+<ul><li><strong>Akun Administrator Default:</strong></li></ul>
+<ul><li><strong>Email:</strong> <code>admin@ismy.or.id</code></li></ul>
+<ul><li><strong>Password:</strong> <code>password</code></li></ul>
+<p></p>
+<h3>Perintah Pemeliharaan Server (Terminal):</h3>
+<ul><li><strong>Menjalankan Server Web:</strong> <code>php artisan serve</code></li></ul>
+<ul><li><strong>Menjalankan Kompilasi Asset CSS/JS:</strong> <code>npm run build</code></li></ul>
+<ul><li><strong>Menjalankan Database Seeder Ulang:</strong> <code>php artisan db:seed</code></li></ul>
+<ul><li><strong>Memastikan Symlink Storage Aktif:</strong> <code>php artisan storage:link</code></li></ul>
+<ul><li><strong>Menjalankan Pengujian Otomatis:</strong> <code>php artisan test</code></li></ul>
+<p></p>
+<hr/>
+<p><em>Dokumen ini disusun sebagai panduan resmi operasional website Ikatan Sarjana Melayu Yogyakarta (ISMY).</em></p>
+<p></p>
+</body></html>

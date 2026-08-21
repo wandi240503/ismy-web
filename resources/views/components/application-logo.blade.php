@@ -1,0 +1,1 @@
+<img src="{{ asset('images/logo.png') }}" alt="Logo Resmi ISMI D.I. Yogyakarta" {{ $attributes->merge(['class' => 'object-contain inline-block']) }} style="max-height: 52px; max-width: 52px; width: auto; height: auto;">
