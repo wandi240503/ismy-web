@@ -21,20 +21,44 @@ foreach ($directories as $dir) {
     }
 }
 
-// 2. Set environment variable for storage
+// 2. Prepare SQLite database in /tmp with seeded data
+$sqlitePath = $storagePath . '/database.sqlite';
+$bundledDb = __DIR__ . '/../database/database.sqlite';
+
+if (!file_exists($sqlitePath)) {
+    if (file_exists($bundledDb) && filesize($bundledDb) > 0) {
+        @copy($bundledDb, $sqlitePath);
+    } else {
+        @touch($sqlitePath);
+    }
+}
+
+// 3. Set environment variable for storage and database
 putenv("APP_STORAGE={$storagePath}");
 $_ENV['APP_STORAGE'] = $storagePath;
 $_SERVER['APP_STORAGE'] = $storagePath;
 
-// 3. Register Composer Autoloader
+// Auto-fallback to SQLite on Vercel unless a live remote PostgreSQL host (like Supabase/Neon) is configured
+$dbHost = getenv('DB_HOST');
+if (!$dbHost || $dbHost === '127.0.0.1' || $dbHost === 'localhost') {
+    putenv("DB_CONNECTION=sqlite");
+    $_ENV['DB_CONNECTION'] = 'sqlite';
+    $_SERVER['DB_CONNECTION'] = 'sqlite';
+
+    putenv("DB_DATABASE={$sqlitePath}");
+    $_ENV['DB_DATABASE'] = $sqlitePath;
+    $_SERVER['DB_DATABASE'] = $sqlitePath;
+}
+
+// 4. Register Composer Autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
-// 4. Bootstrap Laravel Application
+// 5. Bootstrap Laravel Application
 /** @var Application $app */
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// 5. Bind storage path
+// 6. Bind storage path
 $app->useStoragePath($storagePath);
 
-// 6. Handle Request and send response (Laravel 11 native)
+// 7. Handle Request
 $app->handleRequest(Request::capture());
