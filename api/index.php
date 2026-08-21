@@ -40,6 +40,12 @@ try {
     $_ENV['APP_MAINTENANCE_DRIVER'] = 'file';
     $_SERVER['APP_MAINTENANCE_DRIVER'] = 'file';
 
+    if (!getenv('APP_KEY')) {
+        putenv("APP_KEY=base64:DfqxP4pZlkL/m85AABaZMgC0K6AVKAMnA9TtRq4lFfc=");
+        $_ENV['APP_KEY'] = 'base64:DfqxP4pZlkL/m85AABaZMgC0K6AVKAMnA9TtRq4lFfc=';
+        $_SERVER['APP_KEY'] = 'base64:DfqxP4pZlkL/m85AABaZMgC0K6AVKAMnA9TtRq4lFfc=';
+    }
+
     // Auto-fallback to SQLite on Vercel
     $dbHost = getenv('DB_HOST');
     if (!$dbHost || $dbHost === '127.0.0.1' || $dbHost === 'localhost') {

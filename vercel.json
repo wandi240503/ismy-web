@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "framework": null,
   "builds": [
     {
       "src": "api/index.php",
@@ -12,8 +13,8 @@
   ],
   "routes": [
     {
-      "src": "/(build|css|js|images|fonts|favicon.ico|favicon.png|logo.png|robots.txt|PANDUAN_PENGGUNAAN_ISMY.docx)(.*)",
-      "dest": "/public/$1$2"
+      "src": "/(build/.*|images/.*|css/.*|js/.*|favicon.*|robots.txt|.*\\.(?:ico|png|jpg|jpeg|svg|css|js|webp|woff|woff2|ttf|eot))",
+      "dest": "/public/$1"
     },
     {
       "src": "/(.*)",
@@ -21,8 +22,11 @@
     }
   ],
   "env": {
+    "APP_NAME": "ISMY Yogyakarta",
     "APP_ENV": "production",
     "APP_DEBUG": "false",
+    "APP_KEY": "base64:DfqxP4pZlkL/m85AABaZMgC0K6AVKAMnA9TtRq4lFfc=",
+    "APP_URL": "https://ismy-web.vercel.app",
     "APP_MAINTENANCE_DRIVER": "file",
     "APP_CONFIG_CACHE": "/tmp/storage/framework/cache/config.php",
     "APP_EVENTS_CACHE": "/tmp/storage/framework/cache/events.php",
