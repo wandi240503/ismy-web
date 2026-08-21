@@ -76,8 +76,10 @@ try {
             if (!\Illuminate\Support\Facades\Schema::hasTable('beritas')) {
                 \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
             }
-            if (\Illuminate\Support\Facades\Schema::hasTable('anggotas') && \App\Models\Anggota::count() === 0) {
-                \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+            if (\Illuminate\Support\Facades\Schema::hasTable('anggotas')) {
+                if (!\App\Models\Anggota::where('nomor_anggota', 'ISMY-00003')->exists()) {
+                    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+                }
             }
         } catch (\Throwable $e) {
             // Log or ignore
