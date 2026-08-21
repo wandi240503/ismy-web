@@ -34,6 +34,12 @@ try {
     }
 
     // 3. Set environment variable for storage, maintenance driver, and database
+    if ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+        (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on')) {
+        $_SERVER['HTTPS'] = 'on';
+        $_SERVER['SERVER_PORT'] = '443';
+    }
+
     putenv("APP_STORAGE={$storagePath}");
     $_ENV['APP_STORAGE'] = $storagePath;
     $_SERVER['APP_STORAGE'] = $storagePath;
