@@ -86,9 +86,19 @@ try {
             if (!\Illuminate\Support\Facades\Schema::hasTable('beritas')) {
                 \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
             }
-            if (\Illuminate\Support\Facades\Schema::hasTable('anggotas')) {
-                if (!\App\Models\Anggota::where('nomor_anggota', 'ISMY-00003')->exists()) {
-                    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+            if (\Illuminate\Support\Facades\Schema::hasTable('users')) {
+                $admin = \App\Models\User::firstOrNew(['email' => 'admin@ismy.or.id']);
+                if (!$admin->exists || !\Illuminate\Support\Facades\Hash::check('password', $admin->password)) {
+                    $admin->name = 'Administrator ISMY';
+                    $admin->password = \Illuminate\Support\Facades\Hash::make('password');
+                    $admin->save();
+                }
+
+                $wandi = \App\Models\User::firstOrNew(['email' => 'wandimuhammad@gmail.com']);
+                if (!$wandi->exists || !\Illuminate\Support\Facades\Hash::check('password123', $wandi->password)) {
+                    $wandi->name = 'Wandi Muhammad, S.Kom';
+                    $wandi->password = \Illuminate\Support\Facades\Hash::make('password123');
+                    $wandi->save();
                 }
             }
         } catch (\Throwable $e) {
