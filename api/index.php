@@ -48,9 +48,9 @@ try {
     $_ENV['APP_MAINTENANCE_DRIVER'] = 'file';
     $_SERVER['APP_MAINTENANCE_DRIVER'] = 'file';
 
-    putenv("SESSION_DRIVER=file");
-    $_ENV['SESSION_DRIVER'] = 'file';
-    $_SERVER['SESSION_DRIVER'] = 'file';
+    putenv("SESSION_DRIVER=cookie");
+    $_ENV['SESSION_DRIVER'] = 'cookie';
+    $_SERVER['SESSION_DRIVER'] = 'cookie';
 
     if (!getenv('APP_KEY')) {
         putenv("APP_KEY=base64:DfqxP4pZlkL/m85AABaZMgC0K6AVKAMnA9TtRq4lFfc=");

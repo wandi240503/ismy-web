@@ -35,7 +35,7 @@
     "APP_SERVICES_CACHE": "/tmp/storage/framework/cache/services.php",
     "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
     "CACHE_STORE": "array",
-    "SESSION_DRIVER": "file",
+    "SESSION_DRIVER": "cookie",
     "SESSION_LIFETIME": "120",
     "LOG_CHANNEL": "stderr"
   }
