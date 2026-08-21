@@ -68,15 +68,17 @@ try {
     // 6. Bind storage path
     $app->useStoragePath($storagePath);
 
-    // 7. Auto-migrate SQLite if tables do not exist yet
+    // 7. Auto-migrate & seed SQLite if tables or records do not exist yet
     $app->booted(function () {
         try {
             if (!\Illuminate\Support\Facades\Schema::hasTable('beritas')) {
                 \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+            }
+            if (\Illuminate\Support\Facades\Schema::hasTable('anggotas') && \App\Models\Anggota::count() === 0) {
                 \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
             }
         } catch (\Throwable $e) {
-            // Silently ignore or log if migration fails
+            // Log or ignore
         }
     });
 
