@@ -240,5 +240,31 @@ class DatabaseSeeder extends Seeder
                 'status_keanggotaan' => 'aktif',
             ]);
         }
+
+        // 11. Akun Anggota Wandi Muhammad (ISMY-00003)
+        $wandiUser = User::firstOrCreate(
+            ['email' => 'wandimuhammad@gmail.com'],
+            [
+                'name' => 'Wandi Muhammad',
+                'password' => Hash::make('password123'),
+            ]
+        );
+
+        if ($wandiUser && !Anggota::where('user_id', $wandiUser->id)->exists()) {
+            Anggota::create([
+                'user_id' => $wandiUser->id,
+                'wilayah_id' => $sleman?->id,
+                'nomor_anggota' => 'ISMY-00003',
+                'nama_lengkap' => 'Wandi Muhammad',
+                'nik' => '3404010101990003',
+                'tempat_lahir' => 'Yogyakarta',
+                'tanggal_lahir' => '1999-05-24',
+                'alamat' => 'Sleman, D.I. Yogyakarta',
+                'telepon' => '081234567899',
+                'pendidikan_terakhir' => 'S1',
+                'bidang_keahlian' => 'Teknologi Informasi & Budaya Digital',
+                'status_keanggotaan' => 'aktif',
+            ]);
+        }
     }
 }
