@@ -1,106 +1,94 @@
 @extends('layouts.ismy')
 
 @section('content')
-<section class="py-12 px-gutter bg-warm-cream min-h-[80vh] flex items-center justify-center">
-    <div class="max-w-2xl w-full mx-auto space-y-6">
-        
-        <!-- Verification Banner Card -->
-        <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-[#D4AF37]/30 relative overflow-hidden space-y-6">
-            <!-- Background Accent -->
-            <div class="absolute top-0 right-0 w-40 h-40 bg-emerald-50 rounded-bl-full pointer-events-none -z-0"></div>
-
-            <!-- Top Header & Badge Status -->
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 pb-5 relative z-10">
-                <div class="flex items-center gap-3">
-                    <x-application-logo class="h-12 w-auto" />
-                    <div>
-                        <span class="text-xs font-bold text-secondary uppercase tracking-widest block">Verifikasi Identitas Resmi</span>
-                        <h1 class="text-xl font-serif font-black text-primary">Ikatan Sarjana Melayu Yogyakarta</h1>
-                    </div>
-                </div>
-                <div>
-                    <span class="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-xs font-bold px-3.5 py-1.5 rounded-full border border-emerald-300 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span> KTA SAH & AKTIF
-                    </span>
-                </div>
-            </div>
-
-            <!-- Member Identity Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center relative z-10">
-                <div class="sm:col-span-4 flex justify-center">
-                    <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-4 border-[#D4AF37] bg-warm-cream shadow-lg">
-                        <img src="{{ $anggota->foto ? asset('storage/' . $anggota->foto) : asset('images/img_07.jpg') }}" alt="{{ $anggota->nama_lengkap }}" class="w-full h-full object-cover">
-                    </div>
-                </div>
-
-                <div class="sm:col-span-8 space-y-2 text-center sm:text-left">
-                    <span class="text-xs font-mono font-bold text-[#D4AF37] bg-primary px-2.5 py-0.5 rounded-md inline-block">
-                        NO: {{ $anggota->nomor_anggota }}
-                    </span>
-                    <h2 class="text-2xl font-serif font-bold text-primary">{{ $anggota->nama_lengkap }}</h2>
-                    <p class="text-sm font-semibold text-gray-700">{{ $anggota->bidang_keahlian ?? 'Sarjana Melayu' }}</p>
-                    <p class="text-xs text-gray-500">Cabang: <span class="font-bold text-[#0F4C3A]">{{ $anggota->wilayah->nama ?? 'D.I. Yogyakarta' }}</span></p>
-                </div>
-            </div>
-
-            <!-- Details Table -->
-            <div class="bg-warm-cream/70 rounded-2xl p-5 border border-emerald-900/5 grid grid-cols-2 gap-4 text-xs relative z-10">
-                <div>
-                    <span class="text-gray-400 block mb-0.5">Pendidikan Terakhir</span>
-                    <span class="font-bold text-gray-800">{{ $anggota->pendidikan_terakhir ?? 'Sarjana (S1)' }}</span>
-                </div>
-                <div>
-                    <span class="text-gray-400 block mb-0.5">Status Keanggotaan</span>
-                    <span class="font-bold text-emerald-700 uppercase">{{ $anggota->status_keanggotaan ?? 'AKTIF' }}</span>
-                </div>
-                <div>
-                    <span class="text-gray-400 block mb-0.5">Total Kegiatan Diikuti</span>
-                    <span class="font-bold text-[#0F4C3A]">{{ $anggota->kegiatan->count() }} Agenda Resmi</span>
-                </div>
-                <div>
-                    <span class="text-gray-400 block mb-0.5">Tgl Bergabung</span>
-                    <span class="font-bold text-gray-800">{{ $anggota->created_at ? $anggota->created_at->format('d M Y') : '-' }}</span>
-                </div>
-            </div>
-
-            <!-- Event Attendance Quick Check-in for Organizers -->
-            @if(isset($kegiatanTerkini) && $kegiatanTerkini->count() > 0)
-                <div class="border-t border-gray-100 pt-5 space-y-3 relative z-10">
-                    <h3 class="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">
-                        <span class="material-symbols-outlined text-sm text-[#C9A227]">event_available</span>
-                        Presensi Cepat Panitia Acara
-                    </h3>
-
-                    @if(session('success'))
-                        <div class="p-3 bg-emerald-50 text-emerald-800 rounded-xl text-xs font-bold border border-emerald-200 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-base">check_circle</span>
-                            {{ session('success') }}
-                        </div>
+<section class="py-12 px-4 sm:px-6 lg:px-8 bg-warm-cream/40 min-h-[80vh]">
+    <div class="max-w-3xl mx-auto">
+        <!-- Verification Header Badge -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-neutral-100 mb-6">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                <div class="w-24 h-24 rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200 shrink-0 flex items-center justify-center">
+                    @if($anggota->foto)
+                        <img src="{{ asset('storage/' . $anggota->foto) }}" alt="{{ $anggota->nama_lengkap }}" class="w-full h-full object-cover">
+                    @else
+                        <img src="{{ asset('images/logo.png') }}" alt="ISMY Logo" class="w-16 h-16 object-contain p-2">
                     @endif
-
-                    <form action="{{ route('verifikasi.kta.presensi', $anggota->nomor_anggota) }}" method="POST" class="flex flex-col sm:flex-row gap-2">
-                        @csrf
-                        <select name="kegiatan_id" required class="flex-grow text-xs rounded-xl border border-gray-300 px-3 py-2 bg-white focus:ring-2 focus:ring-secondary focus:outline-none">
-                            <option value="">-- Pilih Acara Hari Ini --</option>
-                            @foreach($kegiatanTerkini as $keg)
-                                <option value="{{ $keg->id }}">{{ $keg->judul }} ({{ $keg->tanggal ? $keg->tanggal->format('d M Y') : '' }})</option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="btn-primary px-5 py-2 text-xs font-bold whitespace-nowrap shadow-sm flex items-center justify-center gap-1">
-                            <span class="material-symbols-outlined text-sm">how_to_reg</span> Catat Hadir
-                        </button>
-                    </form>
                 </div>
-            @endif
 
-            <!-- Footer Action -->
-            <div class="pt-2 text-center relative z-10">
-                <a href="{{ route('beranda') }}" class="text-xs font-bold text-[#0F4C3A] hover:text-[#C9A227] inline-flex items-center gap-1">
-                    <span class="material-symbols-outlined text-sm">arrow_back</span> Kembali ke Beranda ISMY
-                </a>
+                <div class="flex-1 text-center sm:text-left">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold mb-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Kartu Anggota Terverifikasi Resmi
+                    </div>
+                    <h1 class="text-2xl font-bold text-neutral-900 font-serif mb-1">{{ $anggota->nama_lengkap }}</h1>
+                    <p class="text-sm font-mono text-emerald-700 font-semibold mb-2">No. KTA: {{ $anggota->nomor_anggota }}</p>
+                    <p class="text-xs text-neutral-500">
+                        Wilayah: <span class="text-neutral-700 font-medium">{{ $anggota->wilayah->nama ?? 'D.I. Yogyakarta' }}</span> | 
+                        Bidang: <span class="text-neutral-700 font-medium">{{ $anggota->bidang_keahlian ?? 'Akademisi / Umum' }}</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Profile Attributes Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-neutral-100 text-xs">
+                <div class="bg-neutral-50/70 p-3 rounded-2xl">
+                    <span class="text-neutral-400 block mb-0.5">Status Anggota</span>
+                    <span class="font-semibold text-emerald-600 capitalize">{{ $anggota->status_keanggotaan ?? 'Aktif' }}</span>
+                </div>
+                <div class="bg-neutral-50/70 p-3 rounded-2xl">
+                    <span class="text-neutral-400 block mb-0.5">Pendidikan</span>
+                    <span class="font-semibold text-neutral-800">{{ $anggota->pendidikan_terakhir ?? '-' }}</span>
+                </div>
+                <div class="bg-neutral-50/70 p-3 rounded-2xl">
+                    <span class="text-neutral-400 block mb-0.5">Total Kegiatan</span>
+                    <span class="font-semibold text-neutral-800">{{ $anggota->kegiatan->count() }} Acara</span>
+                </div>
+                <div class="bg-neutral-50/70 p-3 rounded-2xl">
+                    <span class="text-neutral-400 block mb-0.5">Bergabung Sejak</span>
+                    <span class="font-semibold text-neutral-800">{{ $anggota->created_at ? $anggota->created_at->format('M Y') : '-' }}</span>
+                </div>
             </div>
         </div>
 
+        <!-- Presensi Cepat di Lokasi Acara -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-neutral-100">
+            <h2 class="text-lg font-bold text-neutral-900 mb-1 flex items-center gap-2">
+                <span class="material-symbols-outlined text-emerald-600 text-xl">how_to_reg</span>
+                Presensi Kehadiran Acara / Kegiatan
+            </h2>
+            <p class="text-xs text-neutral-500 mb-5">
+                Konfirmasi kehadiran anggota ini pada agenda yang sedang berlangsung.
+            </p>
+
+            @if(session('success'))
+                <div class="p-4 mb-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-2xl flex items-center gap-2">
+                    <span class="material-symbols-outlined text-base text-emerald-600">check_circle</span>
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if($kegiatanTerkini->isNotEmpty())
+                <form action="{{ route('verifikasi.kta.presensi', ['nomor' => $anggota->nomor_anggota]) }}" method="POST" class="space-y-4">
+                    @csrf
+                    <div>
+                        <label for="kegiatan_id" class="block text-xs font-semibold text-neutral-700 mb-1.5">Pilih Agenda Kegiatan Aktif:</label>
+                        <select name="kegiatan_id" id="kegiatan_id" class="w-full rounded-2xl border-neutral-200 text-xs py-2.5 px-3 focus:ring-emerald-500 focus:border-emerald-500" required>
+                            @foreach($kegiatanTerkini as $keg)
+                                <option value="{{ $keg->id }}">{{ $keg->judul }} ({{ \Carbon\Carbon::parse($keg->tanggal)->translatedFormat('d F Y') }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-2xl transition shadow-sm flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-sm">fact_check</span>
+                        Tandai Anggota Ini Hadir
+                    </button>
+                </form>
+            @else
+                <div class="text-center py-6 bg-neutral-50 rounded-2xl border border-dashed border-neutral-200">
+                    <p class="text-xs text-neutral-500">Saat ini belum ada agenda kegiatan aktif yang dijadwalkan.</p>
+                </div>
+            @endif
+        </div>
     </div>
 </section>
 @endsection
