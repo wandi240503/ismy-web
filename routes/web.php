@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// Redirect /admin/login ke halaman login Laravel standar
+// (Menghindari Filament Livewire login yang bermasalah di serverless Vercel)
+Route::get('/admin/login', function () {
+    if (auth()->check()) {
+        return redirect('/admin');
+    }
+    return redirect('/login');
+})->name('filament.admin.auth.login');
+
 Route::get('/', [PublicController::class, 'beranda'])->name('beranda');
 Route::get('/tentang-kami', [PublicController::class, 'tentangKami'])->name('tentang-kami');
 Route::get('/struktur-organisasi', [PublicController::class, 'strukturOrganisasi'])->name('struktur-organisasi');
