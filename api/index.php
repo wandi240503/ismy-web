@@ -53,12 +53,22 @@ if (!$dbHost || $dbHost === '127.0.0.1' || $dbHost === 'localhost') {
 // 4. Register Composer Autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
-// 5. Bootstrap Laravel Application
-/** @var Application $app */
-$app = require_once __DIR__ . '/../bootstrap/app.php';
+try {
+    // 5. Bootstrap Laravel Application
+    /** @var Application $app */
+    $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// 6. Bind storage path
-$app->useStoragePath($storagePath);
+    // 6. Bind storage path
+    $app->useStoragePath($storagePath);
 
-// 7. Handle Request
-$app->handleRequest(Request::capture());
+    // 7. Handle Request
+    $app->handleRequest(Request::capture());
+} catch (\Throwable $e) {
+    http_response_code(500);
+    header("Content-Type: text/plain; charset=utf-8");
+    echo "=== VERCEL LARAVEL DIAGNOSTIC EXCEPTION ===\n";
+    echo "Class: " . get_class($e) . "\n";
+    echo "Message: " . $e->getMessage() . "\n";
+    echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n";
+    echo "Trace:\n" . $e->getTraceAsString() . "\n";
+}
