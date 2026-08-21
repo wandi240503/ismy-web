@@ -15,7 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->shouldRenderJsonWhen(
-            fn (Request $request) => $request->is('api/*'),
-        );
+        $exceptions->render(function (\Throwable $e, Request $request) {
+            if (config('app.debug') || $request->has('debug')) {
+                return response(
+                    "<html><body style='font-family:sans-serif;padding:30px;background:#fff;'><h2>⚠️ Diagnostic Error Trace</h2><p><b>" . get_class($e) . ":</b> " . htmlspecialchars($e->getMessage()) . "</p><p><b>File:</b> " . $e->getFile() . ":" . $e->getLine() . "</p><pre style='background:#f4f4f5;padding:15px;border-radius:8px;font-size:12px;overflow:auto;'>" . htmlspecialchars($e->getTraceAsString()) . "</pre></body></html>",
+                    500
+                );
+            }
+        });
     })->create();
