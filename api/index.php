@@ -31,10 +31,14 @@ try {
         }
     }
 
-    // 3. Set environment variable for storage and database
+    // 3. Set environment variable for storage, maintenance driver, and database
     putenv("APP_STORAGE={$storagePath}");
     $_ENV['APP_STORAGE'] = $storagePath;
     $_SERVER['APP_STORAGE'] = $storagePath;
+
+    putenv("APP_MAINTENANCE_DRIVER=file");
+    $_ENV['APP_MAINTENANCE_DRIVER'] = 'file';
+    $_SERVER['APP_MAINTENANCE_DRIVER'] = 'file';
 
     // Auto-fallback to SQLite on Vercel
     $dbHost = getenv('DB_HOST');
